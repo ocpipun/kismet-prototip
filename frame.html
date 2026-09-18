@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Kısmet prototipi — telefon çerçevesinde">
+  <meta name="theme-color" content="#0F1D2E">
+  <link rel="icon" type="image/png" href="favicon.png"/>
+  <title>Kısmet · Prototip</title>
+  <script>
+    // On a phone the frame is pointless: open the app full screen.
+    if (Math.min(window.innerWidth, screen.width) < 600) location.replace('./');
+  </script>
+  <style>
+    :root {
+      --page: #0B1622;
+      --text: #F3EBDA;
+      --muted: #B5AA95;
+      --link: #3FA9A2;
+      --bezel: #05090E;
+      --edge: #2E4A66;
+      --w: 390px;
+      --h: 844px;
+    }
+    * { box-sizing: border-box; }
+    html, body { margin: 0; min-height: 100%; background: var(--page); color: var(--text); }
+    body {
+      display: flex; flex-direction: column; align-items: center;
+      font: 15px/1.5 system-ui, -apple-system, 'Segoe UI', sans-serif;
+      padding: 16px;
+    }
+    header {
+      display: flex; flex-wrap: wrap; gap: 8px 20px; align-items: baseline; justify-content: center;
+      margin: 4px 0 16px;
+    }
+    h1 { margin: 0; font: 400 24px/1.2 Georgia, 'Times New Roman', serif; }
+    header span { color: var(--muted); }
+    a { color: var(--link); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    /* The phone keeps real proportions and scales down to fit the window. */
+    .stage { --scale: 1; width: calc((var(--w) + 20px) * var(--scale)); }
+    .phone {
+      width: calc(var(--w) + 20px); height: calc(var(--h) + 20px);
+      padding: 10px; border-radius: 52px; background: var(--bezel);
+      border: 1px solid var(--edge);
+      transform: scale(var(--scale)); transform-origin: top left;
+    }
+    iframe { width: var(--w); height: var(--h); border: 0; border-radius: 42px; display: block; background: #0F1D2E; }
+    .stage-h { height: calc((var(--h) + 20px) * var(--scale)); }
+    footer { margin-top: 16px; color: var(--muted); font-size: 13px; text-align: center; max-width: 420px; }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Kısmet</h1>
+    <span>prototip · sahte (mock) verilerle</span>
+    <a href="./" target="_blank" rel="noopener">Gerçek boyutta aç ↗</a>
+    <a href="widgetbook/" target="_blank" rel="noopener">Bileşen kataloğu ↗</a>
+  </header>
+  <div class="stage stage-h">
+    <div class="phone">
+      <iframe src="./" title="Kısmet uygulaması" allow="clipboard-write; web-share"></iframe>
+    </div>
+  </div>
+  <footer>
+    Ödeme, reklam ve giriş işlemleri taklittir; hiçbir ücret alınmaz. Dil Profil sekmesinden değiştirilebilir.
+  </footer>
+  <script>
+    // Scale the phone to fit the window height (CSS cannot divide lengths).
+    function fit() {
+      var stage = document.querySelector('.stage');
+      var free = window.innerHeight - 140;
+      var scale = Math.max(0.4, Math.min(1, free / 864, (window.innerWidth - 32) / 410));
+      stage.style.setProperty('--scale', scale);
+    }
+    window.addEventListener('resize', fit);
+    fit();
+  </script>
+</body>
+</html>

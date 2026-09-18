@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <!-- Replaced by `flutter build web --base-href /kismet/` (GitHub Pages). -->
+  <base href="/kismet-prototip/">
+
+  <meta charset="UTF-8">
+  <meta content="IE=Edge" http-equiv="X-UA-Compatible">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="description" content="Kısmet — astroloji ve fal uygulaması (prototip)">
+  <meta name="theme-color" content="#0F1D2E">
+
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="apple-mobile-web-app-title" content="Kısmet">
+  <link rel="apple-touch-icon" href="icons/Icon-192.png">
+  <link rel="icon" type="image/png" href="favicon.png"/>
+  <link rel="manifest" href="manifest.json">
+
+  <!-- Latin fonts are needed for the first frame in tr/en; Arabic subsets
+       load on demand. -->
+  <link rel="preload" href="assets/assets/fonts/Inter-Variable.ttf" as="font" type="font/ttf" crossorigin>
+  <link rel="preload" href="assets/assets/fonts/CormorantGaramond-Variable.ttf" as="font" type="font/ttf" crossorigin>
+
+  <title>Kısmet</title>
+
+  <style>
+    html, body { margin: 0; height: 100%; background: #0F1D2E; }
+    /* Plain loading mark until Flutter paints its first frame. Slow fade
+       only: no spinner, no glow. */
+    #loading {
+      position: fixed; inset: 0;
+      display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 20px;
+      color: #B5AA95; font: 20px/1.3 Georgia, 'Times New Roman', serif;
+      transition: opacity 480ms ease;
+    }
+    #loading svg { width: 96px; height: 96px; animation: breathe 2.4s ease-in-out infinite alternate; }
+    #loading.done { opacity: 0; pointer-events: none; }
+    @keyframes breathe { from { opacity: .35; } to { opacity: 1; } }
+    @media (prefers-reduced-motion: reduce) { #loading svg { animation: none; } }
+  </style>
+</head>
+<body>
+  <div id="loading" role="status" aria-label="Yükleniyor">
+    <svg viewBox="0 0 100 100" fill="none" stroke="#3FA9A2" stroke-width="1.2" aria-hidden="true">
+      <circle cx="50" cy="50" r="47"/>
+      <polygon points="50,6 81.1,81.1 6,50 81.1,18.9 50,94 18.9,18.9 94,50 18.9,81.1"/>
+      <circle cx="50" cy="50" r="9"/>
+    </svg>
+    <span>Kısmet</span>
+  </div>
+  <script>
+    window.addEventListener('flutter-first-frame', function () {
+      var el = document.getElementById('loading');
+      if (!el) return;
+      el.classList.add('done');
+      setTimeout(function () { el.remove(); }, 600);
+    });
+  </script>
+  <script src="flutter_bootstrap.js" async></script>
+</body>
+</html>
